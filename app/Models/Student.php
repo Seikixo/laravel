@@ -11,7 +11,7 @@ class Student extends Model
     use HasFactory;
     protected $fillable = ['name', 'section', 'year'];
 
-    public function grade(): HasMany{
+    public function grades(): HasMany{
         return $this->hasMany(Grade::class);
     }
 }

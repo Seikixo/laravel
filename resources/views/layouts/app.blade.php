@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    @livewireStyles
     @vite('resources/css/app.css')
     <title>@yield('title')</title>
 </head>
@@ -17,5 +18,7 @@
     <footer class="flex min-w-full h-14 z-10 p-2 top-0 bg-blue-200">
         Thank you
     </footer>
+
+    @livewireScripts
 </body>
 </html>

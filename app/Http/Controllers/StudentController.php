@@ -13,7 +13,8 @@ class StudentController extends Controller
      */
     public function index()
     {
-        return view('pages.home',['students' => Student::all()]);
+        $students = Student::with('grades')->get();
+        return view('pages.home',['students' => $students]);
     }
 
     /**
@@ -37,7 +38,9 @@ class StudentController extends Controller
      */
     public function show(Student $student)
     {
-        //
+        $student->load('grades');
+
+        return view('students.show', compact('student'));
     }
 
     /**
