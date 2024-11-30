@@ -48,7 +48,9 @@ class StudentController extends Controller
      */
     public function edit(Student $student)
     {
-        //
+        $student->load('grades');
+        
+        return view('pages.edit', ['student' => $student]);
     }
 
     /**
@@ -56,7 +58,13 @@ class StudentController extends Controller
      */
     public function update(Request $request, Student $student)
     {
-        //
+        $validated = $request->validate([
+            'name' => 'required|string|max:255'
+        ]);
+
+        $student->update($validated);
+
+        return redirect()->route('pages.index')->with('success', 'Student update successfully!');
     }
 
     /**

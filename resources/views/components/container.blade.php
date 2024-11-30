@@ -26,6 +26,9 @@
                             <span class="text-gray-500">No grades available</span>
                         @endif
                     </td>
+                    <td>
+                        <a href="{{ route('students.edit', $student->id) }}">Edit</a>
+                    </td>
                 </tr>
             @endforeach
         </tbody>
