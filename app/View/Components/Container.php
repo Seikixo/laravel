@@ -12,7 +12,10 @@ class Container extends Component
     public function __construct($students)
     {
         $this->students = $students;
+
+
     }
+    
 
     /**
      * Get the view / contents that represent the component.

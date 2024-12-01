@@ -21,8 +21,10 @@ class GradeFactory extends Factory
 
         return [
             'student_id' => $student->id,
-            'subject' => $this->faker->randomElement(['English', 'Math', 'Science', 'History']),
-            'grades' => $this->faker->numberBetween(50, 100)
+            'english' => $this->faker->numberBetween(50, 100),
+            'math' => $this->faker->numberBetween(50, 100),
+            'science' => $this->faker->numberBetween(50, 100),
+            'history' => $this->faker->numberBetween(50, 100),
         ];
     }
 }

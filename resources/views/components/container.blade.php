@@ -2,10 +2,10 @@
     <table class="table-auto border-collapse border border-gray-300 w-full">
         <thead class="bg-gray-100">
             <tr>
-                <th class="border border-gray-300 px-4 py-2">ID</th>
-                <th class="border border-gray-300 px-4 py-2">Name</th>
-                <th class="border border-gray-300 px-4 py-2">Section</th>
-                <th class="border border-gray-300 px-4 py-2">Year</th>
+                @foreach (['ID', 'Name', 'Section', 'Year', 'English', 'Math', 'Science', 'History'] as $info)
+                    <th class="border border-gray-300 px-4 py-2">{{$info}}</th>
+                @endforeach
+                
             </tr>
         </thead>
         <tbody>
@@ -15,18 +15,19 @@
                     <td class="border border-gray-300 px-4 py-2">{{ $student->name }}</td>
                     <td class="border border-gray-300 px-4 py-2">{{ $student->section }}</td>
                     <td class="border border-gray-300 px-4 py-2">{{ $student->year }}</td>
+                    @if ($student->grades->isNotEmpty())
+                        @foreach ($student->grades as $grade)
+                            @foreach (['english', 'math', 'science', 'history'] as $subject)
+                                <td class="border border-gray-300 px-4 py-2">{{ $grade->$subject }}</td>
+                            @endforeach
+                        @endforeach
+                        
+                    @else
+                        @foreach (['english', 'math', 'science', 'history'] as $subject)
+                            <td class="border border-gray-300 px-4 py-2">No grade</td>
+                        @endforeach
+                    @endif
                     <td class="border border-gray-300 px-4 py-2">
-                        @if ($student->grades->isNotEmpty())
-                            <ul>
-                                @foreach ($student->grades as $grade)
-                                    <li>{{ $grade->subject }}: {{ $grade->grades }}</li>
-                                @endforeach
-                            </ul>
-                        @else
-                            <span class="text-gray-500">No grades available</span>
-                        @endif
-                    </td>
-                    <td>
                         <a href="{{ route('students.edit', $student->id) }}">Edit</a>
                     </td>
                 </tr>
