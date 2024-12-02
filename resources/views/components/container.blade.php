@@ -1,4 +1,10 @@
 <div {{ $attributes->merge(['class' => 'p-4 bg-white rounded shadow-md']) }}>
+
+    @if (@session('success'))
+        <div class="flex flex-row w-full h-10 bg-green-100 text-black">
+            {{session('success')}}
+        </div>
+    @endif
     <table class="table-auto border-collapse border border-gray-300 w-full">
         <thead class="bg-gray-100">
             <tr>
@@ -29,6 +35,13 @@
                     @endif
                     <td class="border border-gray-300 px-4 py-2">
                         <a href="{{ route('students.edit', $student->id) }}">Edit</a>
+                    </td>
+                    <td>
+                        <form  action="{{ route('students.destroy', $student->id) }}" method="POST">
+                            @csrf
+                            @method('DELETE')
+                            <button class="border border-gray-300 px-4 py-2" type="submit">Delete</button>
+                        </form>
                     </td>
                 </tr>
             @endforeach

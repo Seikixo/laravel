@@ -13,8 +13,8 @@ class StudentController extends Controller
      */
     public function index()
     {
-        $students = Student::with('grades')->latest()->paginate(5);
-        return view('pages.home',['students' => $students]);
+        $students = Student::latest()->paginate(5);
+        return view('pages.home', ['students' => $students]);
     }
 
     /**
@@ -64,7 +64,7 @@ class StudentController extends Controller
 
         $student->update($validated);
 
-        return redirect()->route('pages.index')->with('success', 'Student update successfully!');
+        return redirect()->route('students.index')->with('success', 'Student update successfully!');
     }
 
     /**
@@ -72,6 +72,7 @@ class StudentController extends Controller
      */
     public function destroy(Student $student)
     {
-        //
+        $student->delete();
+        return redirect()->route('students.index')->with('success', 'Student deleted successfully');
     }
 }
