@@ -58,13 +58,28 @@ class StudentController extends Controller
      */
     public function update(Request $request, Student $student)
     {
-        $validated = $request->validate([
-            'name' => 'required|string|max:255'
+       $validated = $request->validate([
+        'name' => 'string',
+        'section' => 'string',
+        'year' => 'integer',
+        'grades.*.english' => 'integer|min:0|max:100',
+        'grades.*.math' => 'integer|min:0|max:100',
+        'grades.*.science' => 'integer|min:0|max:100',
+        'grades.*.history' => 'integer|min:0|max:100',
+       ]);
+       
+
+       $student->update([
+            'name' => $validated['name'],
+            'section' => $validated['section'],
+            'year' => $validated['year'],
         ]);
 
-        $student->update($validated);
+       foreach($validated['grades'] as $gradeId => $gradeData){
+            $student->grades()->where('id', $gradeId)->update($gradeData);
+       }
 
-        return redirect()->route('students.index')->with('success', 'Student update successfully!');
+       return redirect()->route('students.index')->with('success', 'Student updated successfully');
     }
 
     /**
@@ -73,6 +88,7 @@ class StudentController extends Controller
     public function destroy(Student $student)
     {
         $student->delete();
+
         return redirect()->route('students.index')->with('success', 'Student deleted successfully');
     }
 }

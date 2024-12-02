@@ -37,10 +37,11 @@
                         <a href="{{ route('students.edit', $student->id) }}">Edit</a>
                     </td>
                     <td>
-                        <form  action="{{ route('students.destroy', $student->id) }}" method="POST">
+                        <form action="{{ route('students.destroy', $student->id) }}" method="POST">
                             @csrf
                             @method('DELETE')
-                            <button class="border border-gray-300 px-4 py-2" type="submit">Delete</button>
+
+                            <button type="submit" class="border border-gray-300 px-4 py-2">Delete</button>
                         </form>
                     </td>
                 </tr>

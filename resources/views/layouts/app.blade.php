@@ -10,7 +10,7 @@
 </head>
 <body class="flex flex-col min-w-full min-h-screen z-0 gap-4 bg-slate-50">
     <header class="flex flex-row min-w-full h-10 z-10 p-2 bg-blue-300 text-black">
-        Student Monagement System
+        Student Management System
     </header>
     <main class="flex flex-col min-w-full min-h-screen z-10 justify-center items-center">
         @yield('content')
