@@ -17,10 +17,9 @@ class GradeFactory extends Factory
      */
     public function definition(): array
     {
-        $student = Student::factory()->create();
+
 
         return [
-            'student_id' => $student->id,
             'english' => $this->faker->numberBetween(50, 100),
             'math' => $this->faker->numberBetween(50, 100),
             'science' => $this->faker->numberBetween(50, 100),

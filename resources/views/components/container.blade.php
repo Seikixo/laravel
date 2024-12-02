@@ -34,4 +34,9 @@
             @endforeach
         </tbody>
     </table>
+    @if ($students->count())
+        <nav class="mt-4">
+            {{$students->links()}}
+        </nav>
+    @endif
 </div>

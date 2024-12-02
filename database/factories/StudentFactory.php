@@ -19,7 +19,7 @@ class StudentFactory extends Factory
         return [
             'name' => $this->faker->name,
             'section' => $this->faker->randomElement(['A', 'B', 'C', 'D']),
-            'year' => $this->faker->numberBetween([1, 4])
+            'year' => $this->faker->numberBetween(1, 4)
         ];
     }
 }
