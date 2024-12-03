@@ -17,7 +17,6 @@
             <div class="col-start-2 col-end-2 row-start-1 row-end-1 gap-2">
                 @foreach ($student->grades as $grade)
                     @foreach (['english', 'math', 'science', 'history'] as $subject)
-                    <!--<label for="grades[{{ $grade->id }}][{{ $subject }}]">{{ ucfirst($subject) }}</label>-->
                         <input 
                             class="border border-solid rounded-md border-black p-2 mb-2" 
                             name="grades[{{ $grade->id }}][{{ $subject }}]"

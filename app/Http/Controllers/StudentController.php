@@ -75,9 +75,7 @@ class StudentController extends Controller
             'year' => $validated['year'],
         ]);
 
-       foreach($validated['grades'] as $gradeId => $gradeData){
-            $student->grades()->where('id', $gradeId)->update($gradeData);
-       }
+        $student->updateGrades($validated['grades']);
 
        return redirect()->route('students.index')->with('success', 'Student updated successfully');
     }
