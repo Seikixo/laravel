@@ -11,8 +11,10 @@
                 @foreach (['ID', 'Name', 'Section', 'Year', 'English', 'Math', 'Science', 'History'] as $info)
                     <th class="border border-gray-300 px-4 py-2">{{$info}}</th>
                 @endforeach
-                
             </tr>
+            <tr>
+                <a href="{{ route('students.create') }}">Add</a>
+            </tr>     
         </thead>
         <tbody>
             @foreach ($students as $student)

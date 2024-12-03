@@ -20,17 +20,34 @@ class StudentController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(Student $student)
     {
-        //
+        return view('pages.add', ['student' => $student]);
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(Request $request, Student $student)
     {
-        //
+        $validated = $request->validate([
+        'name' => 'string',
+        'section' => 'string',
+        'year' => 'integer',
+        'grades.*.english' => 'integer|min:0|max:100',
+        'grades.*.math' => 'integer|min:0|max:100',
+        'grades.*.science' => 'integer|min:0|max:100',
+        'grades.*.history' => 'integer|min:0|max:100',
+        ]);
+
+        $student->create([
+            'name' => $validated['name'],
+            'section' => $validated['section'],
+            'year' => $validated['year'],
+        ]);
+
+
+        return redirect()->route('students.index')->with('success', 'Student created successfully');
     }
 
     /**
@@ -38,9 +55,7 @@ class StudentController extends Controller
      */
     public function show(Student $student)
     {
-        $student->load('grades');
 
-        return view('students.show', compact('student'));
     }
 
     /**

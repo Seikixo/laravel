@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 class Student extends Model
 {
     use HasFactory;
-    protected $fillable = ['name', 'section', 'year'];
+    protected $fillable = ['name', 'section', 'year', ];
 
     public function grades(): HasMany{
         return $this->hasMany(Grade::class);
@@ -19,6 +19,12 @@ class Student extends Model
     public function scopeUpdateGrades($query, $grades){
         foreach($grades as $gradeId => $gradeData){
             $this->grades()->where('id', $gradeId)->update($gradeData);
+        }
+    }
+
+    public function scopeAddGrades($query, array $grades){
+        foreach($grades as $gradeData){
+            $this->grades()->create($gradeData);
         }
     }
 }
