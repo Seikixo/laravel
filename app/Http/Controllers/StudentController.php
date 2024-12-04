@@ -28,25 +28,25 @@ class StudentController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request, Student $student)
+    public function store(Request $request)
     {
         $validated = $request->validate([
         'name' => 'string',
         'section' => 'string',
         'year' => 'integer',
-        'grades.*.english' => 'integer|min:0|max:100',
-        'grades.*.math' => 'integer|min:0|max:100',
-        'grades.*.science' => 'integer|min:0|max:100',
-        'grades.*.history' => 'integer|min:0|max:100',
+        'grades.english' => 'integer|min:0|max:100',
+        'grades.math' => 'integer|min:0|max:100',
+        'grades.science' => 'integer|min:0|max:100',
+        'grades.history' => 'integer|min:0|max:100',
         ]);
 
-        $student->create([
+        $student = Student::create([
             'name' => $validated['name'],
             'section' => $validated['section'],
             'year' => $validated['year'],
         ]);
 
-
+        $student->addGrades($validated['grades']);
         return redirect()->route('students.index')->with('success', 'Student created successfully');
     }
 

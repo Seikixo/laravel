@@ -23,8 +23,6 @@ class Student extends Model
     }
 
     public function scopeAddGrades($query, array $grades){
-        foreach($grades as $gradeData){
-            $this->grades()->create($gradeData);
-        }
+        $this->grades()->create($grades);
     }
 }
