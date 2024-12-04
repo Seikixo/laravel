@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Student;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Http\Requests\StudentRequest;
 
 class StudentController extends Controller
 {
@@ -28,17 +29,9 @@ class StudentController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StudentRequest $request)
     {
-        $validated = $request->validate([
-        'name' => 'string',
-        'section' => 'string',
-        'year' => 'integer',
-        'grades.english' => 'integer|min:0|max:100',
-        'grades.math' => 'integer|min:0|max:100',
-        'grades.science' => 'integer|min:0|max:100',
-        'grades.history' => 'integer|min:0|max:100',
-        ]);
+        $validated = $request->validated();
 
         $student = Student::create([
             'name' => $validated['name'],
@@ -71,17 +64,9 @@ class StudentController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Student $student)
+    public function update(StudentRequest $request, Student $student)
     {
-       $validated = $request->validate([
-        'name' => 'string',
-        'section' => 'string',
-        'year' => 'integer',
-        'grades.*.english' => 'integer|min:0|max:100',
-        'grades.*.math' => 'integer|min:0|max:100',
-        'grades.*.science' => 'integer|min:0|max:100',
-        'grades.*.history' => 'integer|min:0|max:100',
-       ]);
+       $validated = $request->validated();
        
 
        $student->update([

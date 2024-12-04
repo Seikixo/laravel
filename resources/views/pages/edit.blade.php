@@ -8,9 +8,9 @@
             @csrf
             @method('PUT')
             <div class="col-start-1 col-end-1 row-start-1 row-end-1 gap-2">
-                <input class="border border-solid rounded-md border-black p-2 mb-2" type="text" name="name" id="name" value="{{ old('name', $student->name) }}">
-                <input class="border border-solid rounded-md border-black p-2 mb-2" type="text" name="section" id="section" value="{{ old('section', $student->section) }}">
-                <input class="border border-solid rounded-md border-black p-2 mb-2" type="text" name="year" id="year" value="{{ old('year', $student->year) }}">
+                <input class="border border-solid rounded-md border-black p-2 mb-2" type="text" name="name" id="name" value="{{ old('name', $student->name) }}" required>
+                <input class="border border-solid rounded-md border-black p-2 mb-2" type="text" name="section" id="section" value="{{ old('section', $student->section) }}" required>
+                <input class="border border-solid rounded-md border-black p-2 mb-2" type="text" name="year" id="year" value="{{ old('year', $student->year) }}" required>
             </div>
                 
             <div class="col-start-2 col-end-2 row-start-1 row-end-1 gap-2 mt-4">

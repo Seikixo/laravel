@@ -7,36 +7,20 @@
         @csrf
 
         <div class="col-start-1 col-end-1 row-start-1 row-end-1 gap-2">
-            <input class="border border-solid rounded-md border-black p-2 mb-2" type="text" name="name" id="name">
-            <input class="border border-solid rounded-md border-black p-2 mb-2" type="text" name="section" id="section">
-            <input class="border border-solid rounded-md border-black p-2 mb-2" type="text" name="year" id="year">
+            <input class="border border-solid rounded-md border-black p-2 mb-2" type="text" name="name" id="name" required>
+            <input class="border border-solid rounded-md border-black p-2 mb-2" type="text" name="section" id="section" required>
+            <input class="border border-solid rounded-md border-black p-2 mb-2" type="text" name="year" id="year" required>
         </div>
 
         <div class="col-start-2 col-end-2 row-start-1 row-end-1 gap-2 mt-4">
-            <input 
-                class="border border-solid rounded-md border-black p-2 mb-2" 
-                name="grades[english]"
-                placeholder="English"
-                type="number" 
-            >
-            <input 
-                class="border border-solid rounded-md border-black p-2 mb-2" 
-                name="grades[math]"
-                placeholder="Math"
-                type="number" 
-            >
-            <input 
-                class="border border-solid rounded-md border-black p-2 mb-2" 
-                name="grades[science]"
-                placeholder="Science"
-                type="number" 
-            >
-            <input 
-                class="border border-solid rounded-md border-black p-2 mb-2" 
-                name="grades[history]"
-                placeholder="History"
-                type="number" 
-            >
+            @foreach (['english', 'math', 'science', 'history'] as $subject)
+                <input 
+                    class="border border-solid rounded-md border-black p-2 mb-2" 
+                    name="grades[0][{{ $subject }}]"
+                    placeholder="{{$subject}}"
+                    type="number" 
+                >
+            @endforeach
         </div>
         
             
