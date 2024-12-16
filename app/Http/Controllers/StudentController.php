@@ -12,9 +12,10 @@ class StudentController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $students = Student::latest()->paginate(5);
+        $search = $request->input('search');
+        $students = Student::search($search)->latest()->paginate(5);
         return view('pages.home', ['students' => $students]);
     }
 

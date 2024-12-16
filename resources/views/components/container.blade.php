@@ -5,19 +5,25 @@
             {{session('success')}}
         </div>
     @endif
+
+    <div class="flex w-full mb-2 justify-between">
+        <form action="{{route('students.index')}}" method="GET" class="flex gap-2">
+            <input type="text" name="search" value="{{request('search')}}" placeholder="Search Students" class="border border-black rounded-md px-2">
+            <button type="submit" class="flex justify-start border-2 rounded-md px-2">Search</button>
+        </form>
+        <a href="{{ route('students.create') }}" class="flex justify-start items- w-fit border-2 rounded-md px-2 right-0">Add</a>
+    </div>
+
     <table class="table-auto border-collapse border border-gray-300 w-full">
         <thead class="bg-gray-100">
             <tr>
                 @foreach (['ID', 'Name', 'Section', 'Year', 'English', 'Math', 'Science', 'History'] as $info)
                     <th class="border border-gray-300 px-4 py-2">{{$info}}</th>
                 @endforeach
-            </tr>
-            <tr>
-                <a href="{{ route('students.create') }}">Add</a>
-            </tr>     
+            </tr>    
         </thead>
         <tbody>
-            @foreach ($students as $student)
+            @forelse ($students as $student)
                 <tr class="odd:bg-white even:bg-gray-50 hover:bg-gray-100">
                     <td class="border border-gray-300 px-4 py-2 cursor-pointer">{{ $student->id }}</td>
                     <td class="border border-gray-300 px-4 py-2">{{ $student->name }}</td>
@@ -47,12 +53,17 @@
                         </form>
                     </td>
                 </tr>
-            @endforeach
+            @empty
+                <tr>
+                    <td colspan="10" class="text-center py-4">No Students Found</td>
+                </tr>
+
+            @endforelse
         </tbody>
     </table>
     @if ($students->count())
         <nav class="mt-4">
-            {{$students->links()}}
+            {{$students->withQueryString()->links()}}
         </nav>
     @endif
 </div>

@@ -27,4 +27,12 @@ class Student extends Model
             $this->grades()->create($gradesData);
         }
     }
+
+    public function scopeSearch($query, $term){
+        if($term){
+            $query->where('name', 'like', "%{$term}%")
+            ->orWhere('section', 'like', "%{$term}%")
+            ->orWhere('year', 'like', "%{$term}%");
+        }
+    }
 }
