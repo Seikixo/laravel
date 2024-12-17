@@ -15,8 +15,13 @@ class StudentController extends Controller
     public function index(Request $request)
     {
         $search = $request->input('search');
-        $students = Student::search($search)->latest()->paginate(5);
-        return view('pages.home', ['students' => $students]);
+        $sortColumn = $request->input('sort', 'name');
+        $sortDirection = $request->input('direction', 'asc');
+
+        $students = Student::search($search)
+            ->orderBy($sortColumn, $sortDirection)
+            ->paginate(5);
+        return view('pages.home', ['students' => $students, 'sort' => $sortColumn, 'direction' => $sortDirection]);
     }
 
     /**

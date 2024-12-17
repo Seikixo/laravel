@@ -17,7 +17,22 @@
     <table class="table-auto border-collapse border border-gray-300 w-full">
         <thead class="bg-gray-100">
             <tr>
-                @foreach (['ID', 'Name', 'Section', 'Year', 'English', 'Math', 'Science', 'History'] as $info)
+                <th class="border border-gray-300 px-4 py-2">ID</th>
+                <th class="border border-gray-300 px-4 py-2">
+                    <a href="{{ route('students.index', [
+                        'sort' => 'name',
+                        'direction' => request('direction') === 'asc' ? 'desc' : 'asc',
+                    ]) }}" class="flex justify-center items-center gap-2">
+                        Name
+                        @if (request('sort') === 'name')
+                            <img src="{{ asset(request('direction') === 'asc' ? 'up.png' : 'down.png') }}" alt="{{request('direction')}}" class="w-4 h-4">
+                        @endif
+                    </a>
+                    
+                </th>
+                <th class="border border-gray-300 px-4 py-2">Section</th>
+                <th class="border border-gray-300 px-4 py-2">Year</th>
+                @foreach (['English', 'Math', 'Science', 'History'] as $info)
                     <th class="border border-gray-300 px-4 py-2">{{$info}}</th>
                 @endforeach
             </tr>    
@@ -35,7 +50,6 @@
                                 <td class="border border-gray-300 px-4 py-2">{{ $grade->$subject }}</td>
                             @endforeach
                         @endforeach
-                        
                     @else
                         @foreach (['english', 'math', 'science', 'history'] as $subject)
                             <td class="border border-gray-300 px-4 py-2">No grade</td>
@@ -44,12 +58,12 @@
                     <td class="border border-gray-300 px-4 py-2">
                         <a href="{{ route('students.edit', $student->id) }}">Edit</a>
                     </td>
-                    <td>
+                    <td class="border border-gray-300 px-4 py-2">
                         <form action="{{ route('students.destroy', $student->id) }}" method="POST">
                             @csrf
                             @method('DELETE')
 
-                            <button type="submit" class="border border-gray-300 px-4 py-2">Delete</button>
+                            <button type="submit" >Delete</button>
                         </form>
                     </td>
                 </tr>
