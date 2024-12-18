@@ -18,7 +18,8 @@ class StudentController extends Controller
         $sortColumn = $request->input('sort', 'name');
         $sortDirection = $request->input('direction', 'asc');
 
-        $students = Student::search($search)
+        $students = Student::withAvgGrade()
+            ->search($search)
             ->orderBy($sortColumn, $sortDirection)
             ->paginate(5);
         return view('pages.home', ['students' => $students, 'sort' => $sortColumn, 'direction' => $sortDirection]);

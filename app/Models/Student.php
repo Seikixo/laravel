@@ -16,6 +16,14 @@ class Student extends Model
         return $this->hasMany(Grade::class);
     }
 
+    public function scopeWithAvgGrade($query){
+        return $query->selectRaw('students.*,
+        ROUND((avg(grades.english) + avg(grades.math) + avg(grades.science) + avg(grades.history)) / 4, 2)
+        as grades_avg_grade')
+        ->leftJoin('grades', 'students.id', '=', 'grades.student_id')
+        ->groupBy('students.id', 'students.name', 'students.section', 'students.year', 'students.created_at', 'students.updated_at');
+    }
+
     public function scopeUpdateGrades($query, $grades){
         foreach($grades as $gradeId => $gradeData){
             $this->grades()->where('id', $gradeId)->update($gradeData);

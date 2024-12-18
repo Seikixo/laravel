@@ -32,9 +32,12 @@
                 </th>
                 <th class="border border-gray-300 px-4 py-2">Section</th>
                 <th class="border border-gray-300 px-4 py-2">Year</th>
-                @foreach (['English', 'Math', 'Science', 'History'] as $info)
-                    <th class="border border-gray-300 px-4 py-2">{{$info}}</th>
+
+                @foreach (['English', 'Math', 'Science', 'History'] as $subj)
+                    <th class="border border-gray-300 px-4 py-2">{{$subj}}</th>
                 @endforeach
+
+                <th class="border border-gray-300 px-4 py-2">Average Grade</th>
             </tr>    
         </thead>
         <tbody>
@@ -44,6 +47,7 @@
                     <td class="border border-gray-300 px-4 py-2">{{ $student->name }}</td>
                     <td class="border border-gray-300 px-4 py-2">{{ $student->section }}</td>
                     <td class="border border-gray-300 px-4 py-2">{{ $student->year }}</td>
+
                     @if ($student->grades->isNotEmpty())
                         @foreach ($student->grades as $grade)
                             @foreach (['english', 'math', 'science', 'history'] as $subject)
@@ -55,6 +59,9 @@
                             <td class="border border-gray-300 px-4 py-2">No grade</td>
                         @endforeach
                     @endif
+
+                    <td class="border border-gray-300 px-4 py-2">{{ $student->grades_avg_grade}}</td>
+
                     <td class="border border-gray-300 px-4 py-2">
                         <a href="{{ route('students.edit', $student->id) }}">Edit</a>
                     </td>
