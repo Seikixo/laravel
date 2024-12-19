@@ -17,12 +17,23 @@ class StudentController extends Controller
         $search = $request->input('search');
         $sortColumn = $request->input('sort', 'name');
         $sortDirection = $request->input('direction', 'asc');
+        $sectionFilter = $request->input('section');
+
+        $sections = Student::select('section')->distinct()->get();
 
         $students = Student::withAvgGrade()
+            ->filterBySection($sectionFilter)
             ->search($search)
             ->orderBy($sortColumn, $sortDirection)
             ->paginate(5);
-        return view('pages.home', ['students' => $students, 'sort' => $sortColumn, 'direction' => $sortDirection]);
+
+        return view('pages.home', [
+            'students' => $students, 
+            'sort' => $sortColumn, 
+            'direction' => $sortDirection,
+            'sections' => $sections,
+            'selectedSection' => $sectionFilter
+        ]);
     }
 
     /**

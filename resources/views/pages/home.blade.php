@@ -4,6 +4,10 @@
     
 @section('content')
 
-    <x-container :students="$students" class="flex flex-col"></x-container>
+    <x-container 
+    :students="$students" 
+    :sections="$sections" 
+    :selectedSection="$selectedSection" 
+    class="flex flex-col"></x-container>
 
 @endsection

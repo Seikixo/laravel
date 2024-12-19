@@ -36,6 +36,10 @@ class Student extends Model
         }
     }
 
+    public function scopeFilterBySection($query, $section){
+        return $query->when($section, fn($query) => $query->where('section', $section));
+    }
+
     public function scopeSearch($query, $term){
         if($term){
             $query->where('name', 'like', "%{$term}%")
