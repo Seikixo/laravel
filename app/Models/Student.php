@@ -40,6 +40,10 @@ class Student extends Model
         return $query->when($section, fn($query) => $query->where('section', $section));
     }
 
+    public function scopeFilterByYear($query, $year){
+        return $query->when($year, fn($query) => $query->where('year', $year));
+    }
+
     public function scopeSearch($query, $term){
         if($term){
             $query->where('name', 'like', "%{$term}%")

@@ -1,5 +1,5 @@
 <div {{ $attributes->merge(['class' => 'p-4 bg-white rounded shadow-md']) }}>
-    @props(['students', 'sections', 'selectedSection'])
+    @props(['students', 'sections', 'selectedSection', 'years', 'selectedYear'])
     @if (@session('success'))
         <div class="flex flex-row w-full h-10 bg-green-100 text-black">
             {{session('success')}}
@@ -43,7 +43,19 @@
                         </select>
                     </form>
                 </th>
-                <th class="border border-gray-300 px-4 py-2">Year</th>
+                <th class="border border-gray-300 px-4 py-2">
+                    <form action="{{route('students.index')}}" method="GET">
+                        <select name="year" onchange="this.form.submit()" id="" class="bg-gray-100">
+                            <option value="">All year</option>
+                            @foreach ($years as $year)
+                                <option value="{{$year->year}}"
+                                    {{ $selectedYear === $year->year ? 'selected' : ''}}>
+                                    {{$year->year}}
+                                </option>
+                            @endforeach
+                        </select>
+                    </form>
+                </th>
 
                 @foreach (['English', 'Math', 'Science', 'History'] as $subj)
                     <th class="border border-gray-300 px-4 py-2">{{$subj}}</th>

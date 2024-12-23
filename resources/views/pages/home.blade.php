@@ -8,6 +8,8 @@
     :students="$students" 
     :sections="$sections" 
     :selectedSection="$selectedSection" 
+    :years="$years"
+    :selectedYear="$selectedYear"
     class="flex flex-col"></x-container>
 
 @endsection

@@ -6,6 +6,7 @@ use App\Models\Student;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Http\Requests\StudentRequest;
+use Illuminate\Support\Facades\Log;
 
 class StudentController extends Controller
 {
@@ -17,12 +18,19 @@ class StudentController extends Controller
         $search = $request->input('search');
         $sortColumn = $request->input('sort', 'name');
         $sortDirection = $request->input('direction', 'asc');
+
         $sectionFilter = $request->input('section');
+        $yearFilter = $request->input('year');
+
+        Log::info('Year Filter:', ['year' => $yearFilter]);
+        Log::info('Section Filter:', ['section' => $sectionFilter]);
 
         $sections = Student::select('section')->distinct()->get();
+        $years = Student::select('year')->distinct()->get();
 
         $students = Student::withAvgGrade()
             ->filterBySection($sectionFilter)
+            ->filterByYear($yearFilter)
             ->search($search)
             ->orderBy($sortColumn, $sortDirection)
             ->paginate(5);
@@ -32,7 +40,9 @@ class StudentController extends Controller
             'sort' => $sortColumn, 
             'direction' => $sortDirection,
             'sections' => $sections,
-            'selectedSection' => $sectionFilter
+            'selectedSection' => $sectionFilter,
+            'years' => $years,
+            'selectedYear' => $yearFilter,
         ]);
     }
 
